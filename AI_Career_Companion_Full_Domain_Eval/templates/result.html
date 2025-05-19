@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Career Analysis Result</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-white">
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">🎯 Career Recommendations</h2>
+
+    {% for result in results %}
+    <div class="card mb-4 shadow-sm p-4">
+        <h4>{{ result.domain }} ({{ result.score }}%)</h4>
+        <p><strong>Suggested Role:</strong> {{ result.role }}</p>
+        <p><strong>Top Companies:</strong> {{ result.company }}</p>
+        <p><strong>Learning Path:</strong> {{ result.learning }}</p>
+
+        <div class="progress my-2" style="height: 20px;">
+            <div class="progress-bar bg-success" role="progressbar"
+            aria-valuenow="{{ result.progress }}"
+                 aria-valuenow="{{ result.progress }}" aria-valuemin="0" aria-valuemax="100">
+                {{ result.progress }}% Skills Match
+            </div>
+        </div>
+        
+
+        <p><strong>Known Skills:</strong> {{ result.known_skills | join(', ') }}</p>
+        <p><strong>Skills to Learn:</strong> {{ result.unknown_skills | join(', ') }}</p>
+
+        <p><strong>Job Links:</strong></p>
+        <ul>
+            {% for link in result.job_links %}
+            <li><a href="{{ link }}" target="_blank">{{ link }}</a></li>
+            {% endfor %}
+        </ul>
+
+        <!-- 🔥 Career Pathway Suggestions Section -->
+        <hr>
+        <h5>🧭 Career Roadmap</h5>
+        <ul>
+            {% for step in result.roadmap.steps %}
+            <li>{{ step }}</li>
+            {% endfor %}
+        </ul>
+
+        <p><strong>🛠 Tools to Learn:</strong> {{ result.roadmap.tools | join(', ') }}</p>
+        <p><strong>📜 Certifications:</strong> {{ result.roadmap.certifications | join(', ') }}</p>
+        <p><strong>💼 Roles & Salary:</strong> {{ result.roadmap.roles_salary | join(', ') }}</p>
+    </div>
+    {% endfor %}
+</div>
+</body>
+</html>
